@@ -22,10 +22,32 @@ tb.print = terra (x: int, y: int, str: rawstring, fg: int, bg: int)
   end
 end
 
+-- draw a block
 tb.block = terra (x: int, y: int, w: int, h: int, fg: int, bg: int)
   for j=0,h do
     for i=0,w do
       tb.change_cell(x+i, y+j, 0x2588, fg, bg)
+    end
+  end
+end
+
+-- draw a frame with big lines
+tb.frame = terra (x: int, y: int, w: int, h: int, fg: int, bg: int)
+  for j=0,h do
+    for i=0,w do
+      if i==0 and j == 0 then
+        tb.change_cell(x+i, y+j, 0x250F, fg, bg)
+      elseif i==w-1 and j == 0 then
+        tb.change_cell(x+i, y+j, 0x2513, fg, bg)
+      elseif i==0 and j == h-1 then
+        tb.change_cell(x+i, y+j, 0x2517, fg, bg)
+      elseif i==w-1 and j == h-1 then
+        tb.change_cell(x+i, y+j, 0x251B, fg, bg)
+      elseif i==0 or i==w-1 then
+        tb.change_cell(x+i, y+j, 0x2503, fg, bg)
+      elseif j==0 or j==h-1 then
+        tb.change_cell(x+i, y+j, 0x2501, fg, bg)
+      end
     end
   end
 end
