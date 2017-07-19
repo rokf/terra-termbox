@@ -22,5 +22,13 @@ tb.print = terra (x: int, y: int, str: rawstring, fg: int, bg: int)
   end
 end
 
+tb.block = terra (x: int, y: int, w: int, h: int, fg: int, bg: int)
+  for j=0,h do
+    for i=0,w do
+      tb.change_cell(x+i, y+j, 0x2588, fg, bg)
+    end
+  end
+end
+
 -- return module
 return tb
