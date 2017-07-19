@@ -1,3 +1,6 @@
+-- https://en.wikipedia.org/wiki/Box-drawing_character
+-- https://github.com/nsf/termbox/
+
 local _tbox = terralib.includec("termbox.h")
 local cstr = terralib.includec("string.h")
 terralib.linklibrary("libtermbox.so") -- link shared library
