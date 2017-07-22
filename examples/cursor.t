@@ -1,5 +1,5 @@
+
 local tb = require 'termbox'
-local bc = require 'blockchars'
 
 terra main()
   var running = true
@@ -9,16 +9,14 @@ terra main()
   var event_response = -1
   while running do
     event_response = tb.poll_event(&event) -- poll for events
-    if event_response == tb.EVENT_RESIZE then -- on resize event
-      tb.clear()
-    end
+    tb.clear()
     if event_response == tb.EVENT_MOUSE then -- on mouse event
-      -- change the clicked cell content to a colored block
-      tb.change_cell(event.x, event.y, [bc['█']], tb.GREEN, tb.DEFAULT)
-      -- because bc is a Lua table the expression has to be evaluated
-      -- at compile time with []
+      tb.set_cursor(event.x, event.y) -- display cursor on click position
     end
     if event_response == tb.EVENT_KEY then -- on keypress
+      if event.ch == ("h")[0] then -- hide cursor after h is pressed
+        tb.set_cursor(tb.HIDE_CURSOR, tb.HIDE_CURSOR)
+      end
       if event.key == tb.KEY_ESC then -- if the key was ESC
         running = false -- stop the loop
       end
